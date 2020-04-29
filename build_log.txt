@@ -1,0 +1,9 @@
+v5 additions
+
+- Re-factoring code in the express JS server
+    - Changing getAllRecommendations pathway + separate function
+    - Add getPoolSize pathway to return size of movie pool with current question state
+
+
+- Remove "Don't mind" in responses for optional null and add in to separate button in React?
+    - Over complicates things

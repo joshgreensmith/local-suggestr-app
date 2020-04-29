@@ -1,0 +1,82 @@
+{
+    "0" : {
+        "Question":  "Answer 10 questions and get a film you actually want to watch!",
+        "Responses": ["Begin"]
+    },
+    "1" : {
+        "Question" : "Age rating?",
+        "Responses" : ["PG-13", "R", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "Rating"
+    },
+    "2" : {
+        "Question" : "What kind of film?",
+        "Responses" : ["Intense", "Thought provoking", "Easy watching"],
+        "Optional null" : false,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "Type"
+    },
+    "3" : {
+        "Question" : "What genre?",
+        "Responses" : [
+            ["Crime", "Action", "Thriller", "War", "Horror", "Western", "Sci-Fi"],
+            ["Drama", "Adventure", "Biography", "History", "Film-noir", "Mystery"],
+            ["Family", "Animation", "Music", "Romance", "Comedy"]
+        ],
+        "Optional null" : false,
+        "Dynamic question" : false,
+        "Tree question": true,
+        "Multiple responses" : true,
+        "Database id" : "Genre"
+    },
+    "4" : {
+        "Question" : "How long?",
+        "Responses" : ["Over two hours", "Under two hours", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "OverTwoHours"
+    },
+    "5" : {
+        "Question" : "What language?",
+        "Responses" : ["English", "Not English", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "English"
+    },
+    "6" : {
+        "Question" : "Date film made?",
+        "Responses" : ["After 2010", "Before 2010", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "MadeAfter2010"
+    },
+    "7" : {
+        "Question" : "Mainstream studio?",
+        "Responses" : ["Yes", "No", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "BigFiveStudio"
+    },
+    "8" : {
+        "Question" : "Oscar nominated (or winner)?",
+        "Responses" : ["Yes", "No", "Don't mind"],
+        "Optional null" : true,
+        "Dynamic question" : false,
+        "Tree question": false,
+        "Multiple responses" : false,
+        "Database id" : "OscarNominated"
+    }
+}

@@ -1,13 +1,227 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.SuggestrApp {
+  /* height: 1000px; */
+  width: 100%;
+  background: rgb(248, 249, 246);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-family: monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.Question {
+  background: white;
+  outline-color: black;
+  outline-style: solid;
+
+  width: 50%;
+  height: 80px;
+
+  margin: 20px;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+.ResponseBox {
+  /* outline-color: pink; */
+  /* outline-style: solid; */
+
+  margin: 20px;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+}
+
+.ResponseButtonContainer {
+  /* outline-color: black;
+  outline-style: solid; */
+
+  float: left;
+
+  width: 18%;
+  /* height: 80px; */
+
+  margin: 10px;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.ResponseButtonText {
+  /* outline-color: black;
+  outline-style: solid; */
+
+  width: 100%;
+
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 1.5vw;
+}
+
+.SnapperImage {
+  display: block;
+  width: 100%;
+}
+
+.NextButton {
+  outline-color: blue;
+  outline-style: solid;
+
+  width: 50%;
+  height: 70px;
+
+  font-size: 2vw;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 70px;
+}
+
+.RecommendationsBox {
+  /* outline-color: pink; */
+  /* outline-style: solid; */
+
+  margin: 20px;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+}
+
+.RecommendationContainer {
+  /* outline-color: black;
+  outline-style: solid; */
+
+  float: left;
+
+  width: 30%;
+  /* height: 80px; */
+
+  margin: 10px;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  text-align: center;
+}
+
+.RecommendationData {
+  /* outline-color: red;
+  outline-style: solid; */
+
+  position: absolute;
+  top: 48%;
+
+  width: 96%;
+  height: 51%;
+}
+
+.RecommendationTextDiv {
+  /* outline-color: black;
+  outline-style: solid; */
+  position: absolute;
+  right: 0%;
+
+  width: 54%;
+  height: 90%;
+
+  overflow: hidden;
+}
+
+.PosterImage {
+  height: 95%;
+  position: absolute;
+  left: 2%;
+}
+
+.LoadingResponses {
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* Phone styling */
+@media screen and (max-width: 479px) {
+  .Question {
+    background: rgb(248, 249, 246);
+    outline-style: none;
+    width: 100%;
+    height: 100%;
+    font-size: 7vw;
+  }
+  .ResponseBox {
+    margin: 20px;
+
+    width: 80%;
+  
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+  }
+
+  .ResponseButtonText {
+    font-size: 8vw;
+  }
+
+  .ResponseButtonContainer {
+    width: 80%;
+  }
+
+  .RecommendationsBox {
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+  }
+
+  .RecommendationContainer {
+    width: 95%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    text-align: center;
+  }
+
+  .RecommendationTextDiv {
+    font-size: 3.5vw;
+  }
 }

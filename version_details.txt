@@ -1,0 +1,6 @@
+Content to add:
+
+Adding adaptable CSS for mobile version stacking options in portrait rather than landscape - done with responsive styling
+
+Adding response selection with change of film clapper shape
+
