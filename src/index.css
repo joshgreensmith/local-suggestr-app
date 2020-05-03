@@ -156,6 +156,10 @@
   overflow: hidden;
 }
 
+.RecommendationTitle {
+  font-size: 1.5vw;
+}
+
 .PosterImage {
   height: 95%;
   position: absolute;

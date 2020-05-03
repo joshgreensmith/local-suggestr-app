@@ -115,9 +115,10 @@ function ignore_id(movie, questions) {
 }
 
 function get_recommend_data(imdb_ids) {
+
     recommend_data = []
 
-    var recc_db = JSON.parse(fs.readFileSync('db/recc_db_v1.json'));
+    var recc_db = JSON.parse(fs.readFileSync('db/recc_db_v4.json'));
 
     for(i = 0; i < imdb_ids.length; i++) {
         imdbID = imdb_ids[i];

@@ -108,7 +108,11 @@ class Recommendation extends React.Component {
                     </div>
 
                     <div className = 'RecommendationTextDiv'>
-                        <b>{this.props.data['Title']}</b>
+                        <b><a className = 'RecommendationTitle'
+                        href={data['Trailer']} 
+                        target="_blank">
+                            {this.props.data['Title']}
+                        </a></b>
                         <p>IMDB rating = {data['imdbRating']}</p>
                         <p>{data['Plot']}</p>
                     </div>
