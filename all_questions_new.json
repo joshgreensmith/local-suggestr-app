@@ -1,0 +1,80 @@
+{
+    "0" : {
+        "Question":  "Answer 10 questions and watch a film!",
+        "Responses": ["Begin"]
+    },
+    "1" : {
+        "Question" : "Age rating?",
+        "Responses" : ["PG-13", "R", "Don't mind"],
+        "Optional null" : true,
+        "Multiple responses" : false,
+        "Slider question": false,
+        "Database id" : "Rated"
+    },
+    "2" : {
+        "Question" : "Which genres?",
+        "Responses" : 
+            ["Crime", "Action", "Thriller", "War", "Horror", "Western", "Sci-Fi",
+            "Drama", "Adventure", "Biography", "History", "Film-noir", "Mystery",
+            "Family", "Animation", "Music", "Romance", "Comedy"],
+        "Optional null" : false,
+        "Multiple responses" : true,
+        "Slider question": false,
+        "Database id" : "Genre"
+    },
+    "3" : {
+        "Question" : "How long?",
+        "Slider question": true,
+        "Slider range": [60, 200],   
+        "User response": [60, 200],
+        "Slider step": 1,
+        "Slider units": "mins",
+        "Optional null" : true,
+        "Multiple responses" : false,
+        "Database id" : "Runtime"
+    },
+    "4" : {
+        "Question" : "What language?",
+        "Responses" : ["English", "French", "Italian", "Spanish", "Portugese", "Turkish", "German", "Arabic"],
+        "Optional null" : false,
+        "Multiple responses" : true,
+        "Database id" : "Languages"
+    },
+    "5" : {
+        "Question" : "Year film made?",
+        "Slider question": true,
+        "Slider range": [1900, 2020],
+        "User response": [1940, 2020],
+        "Slider step": 1,
+        "Slider units": "",
+        "Optional null" : false,
+        "Multiple responses" : false,
+        "Database id" : "Year"
+    },
+    "6" : {
+        "Question" : "Imdb rating?",
+        "Slider question": true, 
+        "Slider range": [0, 10],
+        "User response": [1, 10],
+        "Slider step": 0.1,
+        "Slider units": "/10",
+        "Optional null" : false,
+        "Multiple responses" : false,
+        "Database id": "imdbRating"
+
+    },
+    "7" : {
+        "Question" : "Mainstream studio?",
+        "Responses" : ["Yes", "No", "Don't mind"],
+        "Optional null" : true,
+        "Multiple responses" : false,
+        "Database id" : "BigFiveStudio"
+    },
+    "8" : {
+        "Question" : "Oscar nominated (or winner)?",
+        "Responses" : ["Yes", "No", "Don't mind"],
+        "Optional null" : true,
+        "Multiple responses" : false,
+        "Database id" : "OscarNominated"
+    }
+}

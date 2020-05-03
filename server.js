@@ -22,7 +22,7 @@ app.get('/ping', function (req, res) {
 
 // Route to get all questions from the question file
 app.get('/api/getAllQuestions', function(request, response) {
-    var questions_raw = fs.readFileSync('all_questions_2.json');
+    var questions_raw = fs.readFileSync('all_questions_new.json');
     var questions_json = JSON.parse(questions_raw);
     response.send(questions_json);
 });
@@ -54,15 +54,11 @@ function ignore_id(movie, questions) {
     }
 
     // Film length
-    if('User response' in questions['3']) {
-        if(!(questions['3']['User response'] == "Don't mind")) {
-            if(questions['3']['User response'] == 'Over two hours') {
-                if(!(movie['Runtime'] > 120)) {return [true, 3]}
-            }
-            if(questions['3']['User response'] == 'Under two hours') {
-                if(!(movie['Runtime'] < 120)) {return [true, 3]}
-            }
-        }
+    if('User response' in questions['3']) {    
+        var runtime = movie['Runtime']
+        var lower = questions['3']['User response'][0]
+        var upper = questions['3']['User response'][1]
+        if(!(runtime >= lower && runtime <= upper)) {return [true, 3]}
     }
 
     // Language
@@ -75,31 +71,42 @@ function ignore_id(movie, questions) {
         if(!(found_language)) {return [true, 4]}
     }
 
-    // Film date
+    // Film year slider bound
     if('User response' in questions['5']) {
-        if(!(movie['Year'] > questions['5']['User response'])) {return [true, 5]}
+        var lower = questions['5']['User response'][0];
+        var upper = questions['5']['User response'][1];
+        var year = movie['Year'];
+        if(!(year >= lower && year <= upper)) {return [true, 5]}
+    }
+
+    // Imdb rating
+    if('User response' in questions['6']) {
+        var lower = questions['6']['User response'][0];
+        var upper = questions['6']['User response'][1];
+        var imdbRating = movie['imdbRating'];
+        if(!(imdbRating >= lower && imdbRating <= upper)) {return [true, 6]}
     }
 
     // Mainstream studio
-    if('User response' in questions['6']) {
-        if(!(questions['6']['User response'] == "Don't mind")) {
-            if(questions['6']['User response'] == 'Yes') {
-                if(!(movie['BigFiveStudio'])) {return [true, 6]}
+    if('User response' in questions['7']) {
+        if(!(questions['7']['User response'] == "Don't mind")) {
+            if(questions['7']['User response'] == 'Yes') {
+                if(!(movie['BigFiveStudio'])) {return [true, 7]}
             }
-            if(questions['6']['User response'] == 'No') {
-                if(movie['BigFiveStudio']) {return [true, 6]}
+            if(questions['7']['User response'] == 'No') {
+                if(movie['BigFiveStudio']) {return [true, 7]}
             }
         }    
     }
 
     // Oscar nominated
-    if('User response' in questions['7']) {
-        if(!(questions['6']['User response'] == "Don't mind")) {
-            if(questions['7']['User response'] == 'Yes') {
-                if(!(movie['OscarNominated'])) {return [true, 7]}
+    if('User response' in questions['8']) {
+        if(!(questions['8']['User response'] == "Don't mind")) {
+            if(questions['8']['User response'] == 'Yes') {
+                if(!(movie['OscarNominated'])) {return [true, 8]}
             }
-            if(questions['7']['User response'] == 'No') {
-                if(movie['OscarNominated']) {return [true, 7]}
+            if(questions['8']['User response'] == 'No') {
+                if(movie['OscarNominated']) {return [true, 8]}
             }
         }    
     }

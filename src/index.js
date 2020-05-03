@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import OpenSnapper from './OpenSnapper.png'
 import ClosedSnapper from './ClosedSnapper.png'
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
+const Range = Slider.Range;
+
+const slider_style = { width: 400, margin: 50 };
 
 class Question extends React.Component {
     render() {
@@ -17,7 +22,6 @@ class Question extends React.Component {
 class ResponseBox extends React.Component {
     render() {
         const selectedResponses = this.props.selectedResponses;
-        console.log(selectedResponses);
         const responses = this.props.responses.map(response => {
             return (
                 <ResponseButton
@@ -51,6 +55,7 @@ class ResponseButton extends React.Component {
         )
     }
 }
+
 
 class NextButton extends React.Component {
     render() {
@@ -125,6 +130,7 @@ class PoolSizeBox extends React.Component {
     }
 }
 
+
 class SuggestrApp extends React.Component {
     // Initialise the state
     constructor(props) {
@@ -155,6 +161,7 @@ class SuggestrApp extends React.Component {
         .then((data) => {
             this.setState({ all_questions: data }, () => {
                 console.log('Questions loaded');
+                console.log(data);
             });
         });
     }
@@ -202,11 +209,6 @@ class SuggestrApp extends React.Component {
         })
     }
 
-    // Get responses for dynamic questions
-    getResponses() {
-
-    }
-
     handleClick(response) {
         // Deal with multiple reponse questions differently to single response questions
         const cur_q_num = this.state.question_number;
@@ -214,19 +216,20 @@ class SuggestrApp extends React.Component {
         const cur_all_qs = this.state.all_questions;
         const cur_q = cur_all_qs[cur_q_num_str];
         const cur_q_multiple_responses = cur_q['Multiple responses']
+        const cur_q_slider = cur_q['Slider question']
 
-        if(cur_q_multiple_responses) {
-            // Go to next question if next button selected, don't need to update responses (add check for any response)
-            if (response == 'Next') {
-                // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
-                if(cur_q_num === 7) {
-                    this.setState({completed_all_qs: true});
-                    this.getRecommendations();
-                }
-                else {
-                    this.setState( {question_number: cur_q_num + 1} );
-                }
-            } else {
+
+        if(response == 'Next') {
+            // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
+            if(cur_q_num === 8) {
+                this.setState({completed_all_qs: true});
+                this.getRecommendations();
+            }
+            else {
+                this.setState( {question_number: cur_q_num + 1} );
+            }
+        } else {
+            if(cur_q_multiple_responses) {
                 // Add response to array in current question
                 if('User response' in cur_q) {
                     // Check if response already in user response and remove it if so
@@ -248,25 +251,40 @@ class SuggestrApp extends React.Component {
                     new_all_qs[cur_q_num_str]['User response'] = [response];
                 }
                 this.setState({all_questions: new_all_qs});
+            } else {
+                // Add user response to all_questions and update question_number when an option is selected
+                var new_all_qs = cur_all_qs;
+                new_all_qs[cur_q_num_str]['User response'] = response;
+                // var response_index = cur_all_qs[cur_q_num_str]['Responses'].indexOf(response);
+                // new_all_qs[cur_q_num_str]['User response index'] = response_index;
+                        
+                // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
+                if(cur_q_num === 8) {
+                    this.setState({completed_all_qs: true});
+                    this.getRecommendations();
+                }
+                else {
+                    this.setState( {all_questions: new_all_qs} );
+                    this.setState( {question_number: cur_q_num + 1} );
+                } 
             }
-        } else {
-             // Add user response to all_questions and update question_number when an option is selected
-            var new_all_qs = cur_all_qs;
-            new_all_qs[cur_q_num_str]['User response'] = response;
-            // var response_index = cur_all_qs[cur_q_num_str]['Responses'].indexOf(response);
-            // new_all_qs[cur_q_num_str]['User response index'] = response_index;
-                    
-            // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
-            if(cur_q_num === 7) {
-                this.setState({completed_all_qs: true});
-                this.getRecommendations();
-            }
-            else {
-                this.setState( {all_questions: new_all_qs} );
-                this.setState( {question_number: cur_q_num + 1} );
-            } 
         }
         
+        this.getPoolSize();
+        console.log(cur_q_num, this.state.all_questions)
+    }
+
+    handleSliderChange(value) {
+        const cur_q_num_str = this.state.question_number.toString();
+        const cur_all_qs = this.state.all_questions;
+        
+        var new_all_qs = cur_all_qs;
+        new_all_qs[cur_q_num_str]['User response'] = value;
+
+        this.setState({all_questions: new_all_qs});
+    }
+
+    handleSliderAfterChange(value) {
         this.getPoolSize();
     }
 
@@ -294,37 +312,69 @@ class SuggestrApp extends React.Component {
             const q_num = this.state.question_number;
             const q = all_qs[q_num.toString()];
             const q_text = q['Question'];
+            const slider_question = q['Slider question'];
             const multiple_responses = q['Multiple responses'];
             const responses_arr = q['Responses'];
             const pool_size = this.state.pool_size;
 
+            if(slider_question) {
+                const slider_min = q['Slider range'][0];
+                const slider_max = q['Slider range'][1];
+                const cur_slider_val = q['User response'];
+                const slider_units = q['Slider units'];
+                const slider_step = q['Slider step'];
 
-            if(multiple_responses) {
-                return(
+                return (
                     <div className = 'SuggestrApp'>
-                        <Question title_text={q_text}/>
-                        <PoolSizeBox pool_size={pool_size}/>
-                        <ResponseBox responses={responses_arr}
-                        selectedResponses = {'User response' in q ? q['User response'] : []}
-                        onClick = {response => this.handleClick(response)}/>
+                        <Question title_text={q_text} />
+                        <PoolSizeBox pool_size={pool_size} />
+                        <ResponseButton onClick = {null}
+                        isSelected = {true}
+                        response_text = {cur_slider_val[0] + slider_units + ' to ' + cur_slider_val[1] + slider_units}
+                        />
+
+                        <div style = {slider_style}>
+                            <Range key = {q_num}
+                            allowCross = {false}
+                            min = {slider_min}
+                            max = {slider_max}
+                            defaultValue = {cur_slider_val}
+                            onChange = {(value) => this.handleSliderChange(value)}
+                            onAfterChange = {(value) => this.handleSliderAfterChange(value)} 
+                            step = {slider_step} />
+                        </div>
+                        
                         <NextButton onClick = {() => this.handleClick('Next')}/>
                     </div>
                 )
             } else {
-                return(
-                    <div className = 'SuggestrApp'>
-                        <Question title_text={q_text}/>
-                        <PoolSizeBox pool_size={pool_size}/>
-                        <ResponseBox responses={responses_arr}
-                        selectedResponses = {[]}
-                        onClick = {response => this.handleClick(response)}/>
-                    </div>
-                ) 
-            }     
+                if(multiple_responses) {
+                    return(
+                        <div className = 'SuggestrApp'>
+                            <Question title_text={q_text}/>
+                            <PoolSizeBox pool_size={pool_size}/>
+                            <ResponseBox responses={responses_arr}
+                            selectedResponses = {'User response' in q ? q['User response'] : []}
+                            onClick = {response => this.handleClick(response)}/>
+                            <NextButton onClick = {() => this.handleClick('Next')}/>
+                        </div>
+                    )
+                } else {
+                    return(
+                        <div className = 'SuggestrApp'>
+                            <Question title_text={q_text}/>
+                            <PoolSizeBox pool_size={pool_size}/>
+                            <ResponseBox responses={responses_arr}
+                            selectedResponses = {[]}
+                            onClick = {response => this.handleClick(response)}/>
+                        </div>
+                    ) 
+                } 
+            }
         }
-        
     }
 }
+
 
 ReactDOM.render(
     <SuggestrApp />,
