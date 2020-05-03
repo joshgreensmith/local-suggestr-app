@@ -66,7 +66,7 @@ function ignore_id(movie, questions) {
     if('User response' in questions['4']) {
         for(i = 0; i < questions['4']['User response'].length; i++) {
             test_language = questions['4']['User response'][i]
-            if(movie['Languages'].includes(test_language)) {found_language = true}
+            if(movie['Language'].includes(test_language)) {found_language = true}
         }
         if(!(found_language)) {return [true, 4]}
     }
@@ -130,32 +130,31 @@ function get_recommend_data(imdb_ids) {
 app.post('/api/getAllRecommendations', function(request, response) {
     const questions = request.body;
     
-    var movies = JSON.parse(fs.readFileSync('db/core_db_v4.json'));
+    var movies = JSON.parse(fs.readFileSync('db/core_db_v6.json'));
     const number_of_movs_in_db = Object.keys(movies).length;
 
     var imdbIDs_to_ignore = [];
     var movie;
     var ignore_id_test;
     // Overall loop through movies to reduce processing time overall - change fxn to process one film maybe
-    for(j = 1; j <= number_of_movs_in_db; j++) {
-        movie = movies[j.toString()]
+    for(const [imdbID, movie] of Object.entries(movies)) {
+        console.log(imdbID, movie['title']);
         ignore_id_test = ignore_id(movie, questions);
 
         if(ignore_id_test[0]) {
-            imdbIDs_to_ignore.push(movie['imdbID']);
+            imdbIDs_to_ignore.push(imdbID);
         }
     }
 
     // Work out which titles to return based on question responses
     ids_to_recommend = []
-    for(i = 1; i <= number_of_movs_in_db; i++) {
-        movie = movies[i.toString()];
-        if(!(imdbIDs_to_ignore.includes(movie['imdbID']))) {
-            ids_to_recommend.push(movie['imdbID']);
+    for(const [imdbID, movie] of Object.entries(movies)) {
+        if(!(imdbIDs_to_ignore.includes(imdbID))) {
+            ids_to_recommend.push(imdbID);
         }
     }
 
-    // If more than 5 movies returned, randomly choose 5 movies to show
+    // If more than 6 movies returned, randomly choose 6 movies to show
     if(ids_to_recommend.length > 6) {
         ids_to_recommend = _.shuffle(ids_to_recommend).slice(0,6);
     }
@@ -170,22 +169,20 @@ app.post('/api/getPoolSize', function(request, response) {
     const questions = request.body;
     
     var title_json = JSON.parse(fs.readFileSync('db/title_db.json'));
-    var movies = JSON.parse(fs.readFileSync('db/core_db_v4.json'));
+    var movies = JSON.parse(fs.readFileSync('db/core_db_v6.json'));
     const number_of_movs_in_db = Object.keys(movies).length;
 
     var imdbIDs_to_ignore = [];
 
-    var movie;
     var ignore_id_test;
     // Overall loop through movies to reduce processing time overall - change fxn to process one film maybe
-    for(j = 1; j <= number_of_movs_in_db; j++) {
-        movie = movies[j.toString()]
+    for(const [imdbID, movie] of Object.entries(movies)) {
         ignore_id_test = ignore_id(movie, questions);
-
         if(ignore_id_test[0]) {
             imdbIDs_to_ignore.push(movie['imdbID']);
         }
     }
+
     var pool_size = number_of_movs_in_db - imdbIDs_to_ignore.length
     response.send({pool_size});
 });
