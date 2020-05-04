@@ -7,6 +7,8 @@ import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 const Range = Slider.Range;
 
+const num_of_qs = 9;
+
 const slider_style = { width: 400, margin: 50 };
 
 class Question extends React.Component {
@@ -219,13 +221,11 @@ class SuggestrApp extends React.Component {
         const cur_q_num_str = this.state.question_number.toString();
         const cur_all_qs = this.state.all_questions;
         const cur_q = cur_all_qs[cur_q_num_str];
-        const cur_q_multiple_responses = cur_q['Multiple responses']
-        const cur_q_slider = cur_q['Slider question']
-
+        const cur_q_multiple_responses = cur_q['Multiple responses'];
 
         if(response == 'Next') {
             // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
-            if(cur_q_num === 8) {
+            if(cur_q_num === num_of_qs) {
                 this.setState({completed_all_qs: true});
                 this.getRecommendations();
             }
@@ -263,7 +263,7 @@ class SuggestrApp extends React.Component {
                 // new_all_qs[cur_q_num_str]['User response index'] = response_index;
                         
                 // Check that we haven't reached the end of the questions and update this.state.completed_all_qs if so
-                if(cur_q_num === 8) {
+                if(cur_q_num === num_of_qs) {
                     this.setState({completed_all_qs: true});
                     this.getRecommendations();
                 }

@@ -30,14 +30,17 @@ app.get('/api/getAllQuestions', function(request, response) {
 // Return true or false on whether to ignore id from recommendations pool
 // Go through each question response, check if answered and see if it should be ignored
 function ignore_id(movie, questions) {
+    var response;
+
     // Age rating
     if('User response' in questions['1']) {
-        if(!(questions['1']['User response'] == "Don't mind")) {
+        response = questions['1']['User response']
+        if(!(response == "Don't mind")) {
             if(movie['Rated'] == 'PG-13') {
-                if(!(questions['1']['User response'] == 'PG-13')) {return [true, 1]}
+                if(!(response == 'PG-13')) {return [true, 1]}
             }
             if(movie['Rated'] == 'R') {
-                if(!(questions['1']['User response'] == 'R')) {return [true, 1]}
+                if(!(response == 'R')) {return [true, 1]}
             }
         }      
     }
@@ -46,8 +49,9 @@ function ignore_id(movie, questions) {
     var test_genre;
     var found_genre = false;
     if('User response' in questions['2']) {
-        for(i = 0; i < questions['2']['User response'].length; i++) {
-            test_genre = questions['2']['User response'][i];
+        response = questions['2']['User response']
+        for(i = 0; i < response.length; i++) {
+            test_genre = response[i];
             if(movie['Genre'].includes(test_genre)) {found_genre = true}
         }
         if(!(found_genre)) {return [true, 2]}
@@ -64,8 +68,9 @@ function ignore_id(movie, questions) {
     // Language
     var found_language = false;
     if('User response' in questions['4']) {
-        for(i = 0; i < questions['4']['User response'].length; i++) {
-            test_language = questions['4']['User response'][i]
+        response = questions['4']['User response']
+        for(i = 0; i < response.length; i++) {
+            test_language = response[i]
             if(movie['Language'].includes(test_language)) {found_language = true}
         }
         if(!(found_language)) {return [true, 4]}
@@ -89,11 +94,12 @@ function ignore_id(movie, questions) {
 
     // Mainstream studio
     if('User response' in questions['7']) {
-        if(!(questions['7']['User response'] == "Don't mind")) {
-            if(questions['7']['User response'] == 'Yes') {
+        response = questions['7']['User response']
+        if(!(response == "Don't mind")) {
+            if(response == 'Yes') {
                 if(!(movie['BigFiveStudio'])) {return [true, 7]}
             }
-            if(questions['7']['User response'] == 'No') {
+            if(response == 'No') {
                 if(movie['BigFiveStudio']) {return [true, 7]}
             }
         }    
@@ -101,21 +107,41 @@ function ignore_id(movie, questions) {
 
     // Oscar nominated
     if('User response' in questions['8']) {
-        if(!(questions['8']['User response'] == "Don't mind")) {
-            if(questions['8']['User response'] == 'Yes') {
+        response = questions['8']['User response']
+        if(!(response == "Don't mind")) {
+            if(response == 'Yes') {
                 if(!(movie['OscarNominated'])) {return [true, 8]}
             }
-            if(questions['8']['User response'] == 'No') {
+            if(response == 'No') {
                 if(movie['OscarNominated']) {return [true, 8]}
             }
         }    
+    }
+
+    // Services question
+    if('User response' in questions['9']) {
+        response = questions['9']['User response'];
+        if(response.length > 0) {
+            if(!(response.includes("Don't mind"))) {
+                if(movie['Services']) {
+                    if(response.includes('Netflix')) {
+                        if(!(movie['Services'].includes('netflix'))) {return [true, 9]}
+                    }
+                    if(response.includes('Amazon Prime')) {
+                        if(!(movie['Services'].includes('amazon_prime'))) {return [true, 9]}
+                    }
+                    if(response.includes('Hulu Plus')) {
+                        if(!(movie['Services'].includes('hulu_plus'))) {return [true, 9]}
+                    }
+                }      
+            }
+        }     
     }
 
     return false
 }
 
 function get_recommend_data(imdb_ids) {
-
     recommend_data = []
 
     var recc_db = JSON.parse(fs.readFileSync('db/recc_db_v4.json'));
@@ -139,7 +165,6 @@ app.post('/api/getAllRecommendations', function(request, response) {
     var ignore_id_test;
     // Overall loop through movies to reduce processing time overall - change fxn to process one film maybe
     for(const [imdbID, movie] of Object.entries(movies)) {
-        console.log(imdbID, movie['title']);
         ignore_id_test = ignore_id(movie, questions);
 
         if(ignore_id_test[0]) {

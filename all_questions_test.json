@@ -58,7 +58,7 @@
         "Question" : "Imdb rating?",
         "Slider question": true, 
         "Slider range": [0, 10],
-        "User response": [1, 10],
+        "User response": [0, 10],
         "Slider step": 0.1,
         "Slider units": "/10",
         "Optional null" : false,
@@ -77,9 +77,17 @@
     "8" : {
         "Question" : "Oscar nominated (or winner)?",
         "Responses" : ["Yes", "No", "Don't mind"],
-        "User response": "Yes",
+        "User response": "Don't mind",
         "Optional null" : true,
         "Multiple responses" : false,
         "Database id" : "OscarNominated"
+    },
+    "9" : {
+        "Question" : "Which streaming service?",
+        "Responses" : ["Netflix", "Amazon Prime", "Hulu Plus", "Don't mind"],
+        "User response": ["Netflix"],
+        "Optional null" : true,
+        "Multiple responses" : true,
+        "Database id" : "Services"
     }
 }
