@@ -119,25 +119,29 @@ function ignore_id(movie, questions) {
     }
 
     // Services question
+    // EDIT THIS for a matching service found boolean that returns true at end of all evaluations
     if('User response' in questions['9']) {
         response = questions['9']['User response'];
         if(response.length > 0) {
             if(!(response.includes("Don't mind"))) {
+                service_found = false
                 if(movie['Services']) {
                     if(response.includes('Netflix')) {
-                        if(!(movie['Services'].includes('netflix'))) {return [true, 9]}
-                    }
+                        if(movie['Services'].includes('netflix')) {service_found = true}
+                    } 
                     if(response.includes('Amazon Prime')) {
-                        if(!(movie['Services'].includes('amazon_prime'))) {return [true, 9]}
+                        if(movie['Services'].includes('amazon_prime')) {service_found = true}
                     }
                     if(response.includes('Hulu Plus')) {
-                        if(!(movie['Services'].includes('hulu_plus'))) {return [true, 9]}
+                        if(movie['Services'].includes('hulu_plus')) {service_found = true}
                     }
-                }      
+                }
+                if(!(service_found)) {return [true, 9]}
             }
         }     
     }
 
+    // Return false to ignore if the movie passes all the tests
     return false
 }
 
@@ -194,7 +198,6 @@ app.post('/api/getAllRecommendations', function(request, response) {
 app.post('/api/getPoolSize', function(request, response) {
     const questions = request.body;
     
-    var title_json = JSON.parse(fs.readFileSync('db/title_db.json'));
     var movies = JSON.parse(fs.readFileSync('db/core_db_v6.json'));
     const number_of_movs_in_db = Object.keys(movies).length;
 

@@ -4,3 +4,11 @@ Adding adaptable CSS for mobile version stacking options in portrait rather than
 
 Adding response selection with change of film clapper shape
 
+
+New to add:
+
+Imdb icon in recommendations
+Alternative critic rankings in recommendations (with icons)
+Custom domain suggestr.app
+Next, previous button - need default responses (HIGH priority)
+Secondary text on questions and recommendations for use instructions (sliders and click on title for trailer)
