@@ -22,7 +22,7 @@ app.get('/ping', function (req, res) {
 
 // Route to get all questions from the question file
 app.get('/api/getAllQuestions', function(request, response) {
-    var questions_raw = fs.readFileSync('all_questions_new.json');
+    var questions_raw = fs.readFileSync('all_questions.json');
     var questions_json = JSON.parse(questions_raw);
     response.send(questions_json);
 });
@@ -131,8 +131,7 @@ function ignore_id(movie, questions) {
                     } 
                     if(response.includes('Amazon Prime')) {
                         if(movie['Services'].includes('amazon_prime')) {service_found = true}
-                    }
-                    if(response.includes('Hulu Plus')) {
+                    }if(response.includes('Hulu Plus')) {
                         if(movie['Services'].includes('hulu_plus')) {service_found = true}
                     }
                 }

@@ -1,6 +1,6 @@
 {
     "0" : {
-        "Question":  "Answer 10 questions and watch a film!",
+        "Question":  "Suggestr",
         "Responses": ["Begin"]
     },
     "1" : {
@@ -8,6 +8,7 @@
         "Responses" : ["PG-13", "R", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : false,
+        "Slider question": false,
         "Database id" : "Rated"
     },
     "2" : {
@@ -18,41 +19,72 @@
             "Family", "Animation", "Music", "Romance", "Comedy"],
         "Optional null" : false,
         "Multiple responses" : true,
+        "Slider question": false,
         "Database id" : "Genre"
     },
     "3" : {
         "Question" : "How long?",
-        "Responses" : ["Over two hours", "Under two hours", "Don't mind"],
+        "Slider question": true,
+        "Slider range": [60, 200],   
+        "User response": [60, 200],
+        "Default value": [60, 200],
+        "Slider step": 1,
+        "Slider units": "",
         "Optional null" : true,
         "Multiple responses" : false,
         "Database id" : "Runtime"
     },
     "4" : {
         "Question" : "What language?",
-        "Responses" : ["English", "French", "Italian", "Spanish", "Portugese", "Turkish", "German", "Russian", "Arabic"],
+        "Responses" : ["English", "French", "Italian", "Spanish", "Portugese", "Turkish", "German", "Arabic"],
         "Optional null" : false,
         "Multiple responses" : true,
         "Database id" : "Languages"
     },
     "5" : {
-        "Question" : "Date film made after?",
-        "Responses" : ["1970", "1980", "1990", "2000", "2010"],
+        "Question" : "Year film made?",
+        "Slider question": true,
+        "Slider range": [1900, 2020],
+        "User response": [1940, 2020],
+        "Default value": [1940, 2020],
+        "Slider step": 1,
+        "Slider units": "",
         "Optional null" : false,
         "Multiple responses" : false,
         "Database id" : "Year"
     },
     "6" : {
+        "Question" : "Imdb rating?",
+        "Slider question": true, 
+        "Slider range": [0, 10],
+        "User response": [1, 10],
+        "Default value": [1, 10],
+        "Slider step": 0.1,
+        "Slider units": "/10",
+        "Optional null" : false,
+        "Multiple responses" : false,
+        "Database id": "imdbRating"
+
+    },
+    "7" : {
         "Question" : "Mainstream studio?",
         "Responses" : ["Yes", "No", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : false,
         "Database id" : "BigFiveStudio"
     },
-    "7" : {
+    "8" : {
         "Question" : "Oscar nominated (or winner)?",
         "Responses" : ["Yes", "No", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : false,
         "Database id" : "OscarNominated"
+    },
+    "9" : {
+        "Question" : "Which streaming service?",
+        "Responses" : ["Netflix", "Amazon Prime", "Hulu Plus", "Don't mind"],
+        "Optional null" : true,
+        "Multiple responses" : true,
+        "Database id" : "Services"
     }
 }

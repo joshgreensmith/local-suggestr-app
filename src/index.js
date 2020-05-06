@@ -11,6 +11,16 @@ const num_of_qs = 9;
 
 const slider_style = { width: 400, margin: 50 };
 
+function convert_mins(mins) {
+    if(mins > 60) {
+        var hours = Math.floor(mins/60);
+        var mins_after_hour = mins - hours * 60;
+        return (hours + 'h' + mins_after_hour + '')
+    } else {
+        return (mins + 'mins')
+    }
+}
+
 class QuestionBox extends React.Component {
     render() {
         const q = this.props.questionData;
@@ -150,7 +160,7 @@ class SuggestrApp extends React.Component {
             got_responses: false,
             all_questions: {
                 "0":{
-                    "Question":  "Answer 10 questions and get a film you actually want to watch!",
+                    "Question":  "Suggestr",
                     "Responses": ["Begin"]
                 }
             }
@@ -169,7 +179,7 @@ class SuggestrApp extends React.Component {
         .then((data) => {
             this.setState({ all_questions: data }, () => {
                 console.log('Questions loaded');
-                console.log(data);
+                // console.log(data);
             });
         });
     }
@@ -280,7 +290,7 @@ class SuggestrApp extends React.Component {
         }
         
         this.getPoolSize();
-        console.log(cur_q_num, this.state.all_questions)
+        // console.log(cur_q_num, this.state.all_questions)
     }
 
     handleSliderChange(value) {
@@ -341,9 +351,18 @@ class SuggestrApp extends React.Component {
             if(slider_question) {
                 const slider_min = q['Slider range'][0];
                 const slider_max = q['Slider range'][1];
-                const cur_slider_val = q['User response'];
                 const slider_units = q['Slider units'];
                 const slider_step = q['Slider step'];
+                const default_value = q['Default value'];
+
+                var cur_slider_val;
+                if(q_num == 3) {
+                    var lower = q['User response'][0]
+                    var upper = q['User response'][1]
+                    cur_slider_val = [convert_mins(lower), convert_mins(upper)];
+                } else {
+                    cur_slider_val = q['User response'];
+                }
 
                 return (
                     <div className = 'SuggestrApp'>
@@ -358,13 +377,13 @@ class SuggestrApp extends React.Component {
                             isSelected = {true}
                             response_text = {cur_slider_val[0] + slider_units + ' to ' + cur_slider_val[1] + slider_units} />
 
-                        <div style = {slider_style}>
+                        <div className = 'RangeSlider'>
                             <Range 
                                 key = {q_num}
                                 allowCross = {false}
                                 min = {slider_min}
                                 max = {slider_max}
-                                defaultValue = {cur_slider_val}
+                                defaultValue = {default_value}
                                 onChange = {(value) => this.handleSliderChange(value)}
                                 onAfterChange = {(value) => this.handleSliderAfterChange(value)} 
                                 step = {slider_step} />
@@ -391,7 +410,6 @@ class SuggestrApp extends React.Component {
         }
     }
 }
-
 
 ReactDOM.render(
     <SuggestrApp />,

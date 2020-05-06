@@ -39,7 +39,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 3vw;
 }
 
 
@@ -55,7 +55,7 @@
   width: 15%;
   height: 70%;
 
-  font-size: 2vw;
+  font-size: 2.5vw;
   text-align: center;
   vertical-align: middle;
   line-height: 70px;
@@ -75,7 +75,7 @@
   width: 15%;
   height: 70%;
 
-  font-size: 2vw;
+  font-size: 2.5vw;
   text-align: center;
   vertical-align: middle;
   line-height: 70px;
@@ -94,6 +94,11 @@
 
   font-size: 1vw;
   text-align: center;
+}
+
+.RangeSlider {
+  width: 40%;
+  margin: 50px;
 }
 
 .RecommendationsTitleBox {
@@ -179,7 +184,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  font-size: 1.5vw;
+  font-size: 2.3vw;
 }
 
 .SnapperImage {
@@ -269,20 +274,105 @@ li {
 
 /* Phone styling */
 @media screen and (max-width: 479px) {
-  .Question {
-    background: rgb(248, 249, 246);
-    outline-style: none;
+  .QuestionBox {
+    /* outline-color: black;
+    outline-style: solid; */
+  
+    position: relative;
+  
     width: 100%;
-    height: 100%;
-    font-size: 7vw;
+    height: 100px;
   }
-  .ResponseBox {
-    margin: 20px;
+  
+  .Question {
+    background: white;
+    border: 2px solid black;
+    border-radius: 25px;
+  
+    position: absolute;
+    right: 20%;
+    top: 0%;
+  
+    width: 60%;
+    height: 70%;
+  
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 5vw;
+  }
+  
+  
+  .PrevButton {
+    background: white;
+    border: 2px solid black;
+    border-radius: 25px;
+  
+    position: absolute;
+    left: 1%;
+    top: 0%;
+  
+    width: 15%;
+    height: 70%;
+  
+    font-size: 5vw;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 70px;
+    overflow: hidden;
+  
+    cursor: pointer;
+  }
+  
+  .NextButton {
+    background: white;
+    border: 2px solid black;
+    border-radius: 25px;
+  
+    position: absolute;
+    right: 1%;
+    top: 0%;
+  
+    width: 15%;
+    height: 70%;
+  
+    font-size: 5vw;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 70px;
+  
+    cursor: pointer;
+  }
 
-    width: 80%;
+  .PoolSizeBox {
+    /* outline-color: blue;
+    outline-style: solid; */
+  
+    position: absolute;
+    bottom: 3%;
+  
+    width: 100%;
+  
+    font-size: 3vw;
+    text-align: center;
+  }
+
+
+.RangeSlider {
+  width: 80%;
+  margin: 50px;
+}
+
+  .ResponseBox {
+    /* border: 2px solid black; */
+
+    margin: 10px;
+
+    width: 100%;
   
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     text-align: center;
@@ -290,11 +380,36 @@ li {
   }
 
   .ResponseButtonText {
-    font-size: 8vw;
+    font-size: 5vw;
   }
 
   .ResponseButtonContainer {
-    width: 80%;
+    /* border: 2px solid black; */
+
+    width: 40%;
+  }
+
+  .RecommendationTitleText {
+    font-size: 7vw;
+    width: 100%;
+    position: absolute;
+
+    right: 0%;
+    top: 15%;
+
+    text-align: center;
+  }
+
+  .RecommendationTitleSecondaryText {
+    font-size: 4vw;
+    width: 100%;
+    height: 30%;
+    position: absolute;
+  
+    right: 0%;
+    bottom: 15%;
+  
+    text-align: center;
   }
 
   .RecommendationsBox {
@@ -306,6 +421,10 @@ li {
     justify-content: space-around;
     text-align: center;
     align-items: center;
+  }
+
+  .RecommendationTitle {
+    font-size: 4vw;
   }
 
   .RecommendationContainer {
