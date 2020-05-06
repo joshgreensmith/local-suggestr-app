@@ -10,5 +10,8 @@ New to add:
 Imdb icon in recommendations
 Alternative critic rankings in recommendations (with icons)
 Custom domain suggestr.app
-Next, previous button - need default responses (HIGH priority)
+Next, previous button - need default responses (HIGH priority) - done
 Secondary text on questions and recommendations for use instructions (sliders and click on title for trailer)
+
+Debugging:
+
