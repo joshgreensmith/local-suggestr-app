@@ -1,11 +1,13 @@
 {
     "0" : {
         "Question":  "Suggestr",
+        "Secondary text": "Designed by Josh Greensmith",
         "Responses": ["Begin"]
     },
     "1" : {
         "Question" : "Age rating?",
         "Responses" : ["PG-13", "R", "Don't mind"],
+        "Secondary text": "",
         "Optional null" : true,
         "Multiple responses" : false,
         "Slider question": false,
@@ -17,6 +19,7 @@
             ["Crime", "Action", "Thriller", "War", "Horror", "Western", "Sci-Fi",
             "Drama", "Adventure", "Biography", "History", "Film-noir", "Mystery",
             "Family", "Animation", "Music", "Romance", "Comedy"],
+        "Secondary text": "Select all genres you want",
         "Optional null" : false,
         "Multiple responses" : true,
         "Slider question": false,
@@ -24,6 +27,7 @@
     },
     "3" : {
         "Question" : "How long?",
+        "Secondary text": "Use the slider to change the length",
         "Slider question": true,
         "Slider range": [60, 200],   
         "User response": [60, 200],
@@ -37,12 +41,14 @@
     "4" : {
         "Question" : "What language?",
         "Responses" : ["English", "French", "Italian", "Spanish", "Portugese", "Turkish", "German", "Arabic"],
+        "Secondary text": "",
         "Optional null" : false,
         "Multiple responses" : true,
         "Database id" : "Languages"
     },
     "5" : {
         "Question" : "Year film made?",
+        "Secondary text": "",
         "Slider question": true,
         "Slider range": [1900, 2020],
         "User response": [1940, 2020],
@@ -54,7 +60,8 @@
         "Database id" : "Year"
     },
     "6" : {
-        "Question" : "Imdb rating?",
+        "Question" : "IMDb rating?",
+        "Secondary text": "",
         "Slider question": true, 
         "Slider range": [0, 10],
         "User response": [1, 10],
@@ -68,6 +75,7 @@
     },
     "7" : {
         "Question" : "Mainstream studio?",
+        "Secondary text": "",
         "Responses" : ["Yes", "No", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : false,
@@ -75,13 +83,15 @@
     },
     "8" : {
         "Question" : "Oscar nominated (or winner)?",
+        "Secondary text": "",
         "Responses" : ["Yes", "No", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : false,
         "Database id" : "OscarNominated"
     },
     "9" : {
-        "Question" : "Which streaming service?",
+        "Question" : "Which streaming services?",
+        "Secondary text": "",
         "Responses" : ["Netflix", "Amazon Prime", "Hulu Plus", "Don't mind"],
         "Optional null" : true,
         "Multiple responses" : true,

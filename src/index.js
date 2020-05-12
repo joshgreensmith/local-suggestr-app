@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import OpenSnapper from './OpenSnapper.png'
 import ClosedSnapper from './ClosedSnapper.png'
+import IMDbLogo from './IMDbLogo.png'
+import RotTomLogo from './RotTomLogo2.png'
+
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 const Range = Slider.Range;
@@ -29,8 +32,14 @@ class QuestionBox extends React.Component {
 
         return (
             <div className = 'QuestionBox'>
-                <div className = 'Question'> 
-                    {q['Question']} 
+                <div className = 'Question'>
+                    <p>
+                        <br />
+                        {q['Question']} 
+                        <p className = 'SecondaryQuestionText'>
+                            {q['Secondary text']}
+                        </p>    
+                    </p>
                 </div>
 
                 {q_num > 1 && 
@@ -116,9 +125,32 @@ class RecommendationsBox extends React.Component {
     }
 }
 
+function Rating(props) {
+    return (
+        <p className = 'RatingsPara'>
+            <img src = {props.imageName} className = 'LogoImage' />
+            &nbsp;{props.rating}/{props.scale}
+        </p>     
+    )
+}
+
 class Recommendation extends React.Component {
     render() {
         const data = this.props.data;
+        var imdbRating;
+        if('imdbRating' in data) {
+            imdbRating = <Rating imageName = {IMDbLogo} rating = {data['imdbRating']} scale = '10'/>
+        } else {
+            imdbRating = null;
+        }
+
+        var RotTomRating;
+        if('RotTomRating' in data) {
+            RotTomRating = <Rating imageName = {RotTomLogo} rating = {data['RotTomRating']} scale = '100'/>
+        } else {
+            RotTomRating = null;
+        }
+
         return (
             <div className = 'RecommendationContainer'>
                 <img src = {OpenSnapper}
@@ -138,7 +170,9 @@ class Recommendation extends React.Component {
                         target="_blank">
                             {this.props.data['Title']}
                         </a></b>
-                        <p>IMDB rating = {data['imdbRating']}</p>
+                        <p>                   
+                            {imdbRating}  {RotTomRating}               
+                        </p>
                         <p>{data['Plot']}</p>
                     </div>
                     
@@ -161,6 +195,7 @@ class SuggestrApp extends React.Component {
             all_questions: {
                 "0":{
                     "Question":  "Suggestr",
+                    "Secondary text": "Designed by Josh Greensmith",
                     "Responses": ["Begin"]
                 }
             }

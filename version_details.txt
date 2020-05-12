@@ -15,3 +15,5 @@ Secondary text on questions and recommendations for use instructions (sliders an
 
 Debugging:
 
+Check server deselection protocols - in errors in console
+Fix next previous buttons on mobile
